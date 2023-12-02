@@ -26,31 +26,25 @@ while(<>){
   my ($max_possible_red, $max_possible_blue, $max_possible_green) = (0, 0, 0);
 
   # For each extraction in the game
-  foreach my $extraction (@different_extractions) {  
+  foreach (@different_extractions) {  
 
     # Obtain the information about each color
-    my @extracted_cubes = split(",", $extraction);
+    my @extracted_cubes = split ',';
     
     # For each of the colors
-    foreach my $cubes (@extracted_cubes) {
+    foreach (@extracted_cubes) {
 
       # Get both color and size
-      my ($size, $color) = split(' ', $cubes);
+      my ($size, $color) = split ' ';
 
       # Consider the three possibilities and update both max_possible 
       # and find_impossible
-      if($color eq "blue"){
-        $max_possible_blue = ($size > $max_possible_blue) ? $size : $max_possible_blue;
-        $game_is_possible = ($size > $max_blue) ? (0) : ($game_is_possible);
-      }
-      if($color eq "red"){
-        $max_possible_red = ($size > $max_possible_red) ? $size : $max_possible_red;
-        $game_is_possible = ($size > $max_red) ? (0) : ($game_is_possible);
-      }
-      if($color eq "green"){
-        $max_possible_green = ($size > $max_possible_green) ? $size : $max_possible_green;
-        $game_is_possible = ($size > $max_green) ? (0) : ($game_is_possible);
-      }
+      $max_possible_blue  = ($color eq "blue"  && $size > $max_possible_blue)  ? $size : $max_possible_blue;
+      $game_is_possible   = ($color eq "blue"  && $size > $max_blue)           ? 0     : $game_is_possible;
+      $max_possible_red   = ($color eq "red"   && $size > $max_possible_red)   ? $size : $max_possible_red;
+      $game_is_possible   = ($color eq "red"   && $size > $max_red)            ? 0     : $game_is_possible;
+      $max_possible_green = ($color eq "green" && $size > $max_possible_green) ? $size : $max_possible_green;
+      $game_is_possible   = ($color eq "green" && $size > $max_green)          ? 0     : $game_is_possible;
     }
   }
 
