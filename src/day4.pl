@@ -3,11 +3,12 @@ use POSIX;
 
 my ($sum_values_part_1, $sum_values_part_2) = (0, 0); # Results
 my @scratchcards = (1) x 204;                         # Array to store the number of scratchcards
+                                                      # !!! Size is taken from the input and it may vary
 
 while(<>){
   my ($current_line) = ($_ =~ /(\d+)/)[0]-1;      # Current line number 
-  my ($winning_numbers) = ($_ =~ /\|(.*)$/) ;     # List of winning numbers
-  my ($my_numbers) = ($_ =~ /: (.*)\|/);          # List of available numbers
+  my ($my_numbers) = ($_ =~ /\|(.*)$/) ;          # List of available numbers
+  my ($winning_numbers) = ($_ =~ /: (.*)\|/);     # List of winning numbers
   my $matches = 0;                                # Number of matches in card
 
   # If an available number is among the winning numbers, updated matches
