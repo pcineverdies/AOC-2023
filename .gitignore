@@ -1,1 +1,3 @@
 .vstags
+template.pl
+tests/**
