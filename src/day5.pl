@@ -1,5 +1,4 @@
 use warnings; use strict;
-use Data::Dumper;
 use List::Util qw( min );
 
 my ($result_part_1, $result_part_2) = (0, ~0); # Results
@@ -24,15 +23,14 @@ while(<>){
 
     # Generate all the ranges ans [begin, end)
     for(my $i = 0; $i < (scalar @numbers); $i+=2)
-    { my @newrange = ($numbers[$i], $numbers[$i] + $numbers[$i+1]); push(@ranges, \@newrange); }
+      { my @newrange = ($numbers[$i], $numbers[$i] + $numbers[$i+1]); push(@ranges, \@newrange); }
 
     next;
   }
 
   # If the current line contains numbers, than section intervals must be updated;
-  if($_ =~ /(\d)/){
-    my @newinterval = $_ =~ /(\d+)/g; push(@current_section_intervals, \@newinterval);
-  }
+  if($_ =~ /(\d)/)
+    { my @newinterval = $_ =~ /(\d+)/g; push(@current_section_intervals, \@newinterval); }
 
   # If the current line is \n or eof(), then we convert the numbers and the ranges
   if($_ eq "\n" || eof()){
@@ -63,6 +61,7 @@ while(<>){
 
     # For each range still available
     while(scalar @ranges > 0){
+
       # Extract one range from the array
       my $range = pop(@ranges);
       # Stores if a conversion has been done (if not, the whole range remains the same)
@@ -72,6 +71,7 @@ while(<>){
 
       # For each interval in the section
       for my $current_interval (@current_section_intervals){
+
         # Extract content and compute the end of the interval
         my ($dst_start, $src_start, $size) = @$current_interval;
         my $src_end = $src_start + $size;
@@ -83,6 +83,7 @@ while(<>){
 
         # If there is an overlap
         if($overlap_start < $overlap_end){
+
           # The region [overlap_start, overlap_end] must be converted
           my @newrange = ($overlap_start - $src_start + $dst_start, $overlap_end - $src_start + $dst_start);
           push(@converted_ranges, \@newrange);
@@ -99,13 +100,11 @@ while(<>){
           $conversion_happened = 1;
           last;
         }
-
       }
 
       # If no conversion has been done, then the whole range enters as it is
       if(not $conversion_happened)
         { my @newrange = ($range_start, $range_end); push(@converted_ranges, \@newrange); }
-
     }
 
     # Update ranges and reset converted ranges
