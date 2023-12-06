@@ -11,3 +11,17 @@ To run a (valid) day `n` use
 ```bash
 perl run.pl n
 ```
+
+## Fish trick
+
+As I use `fish` I set the following alias
+
+```
+alias --save advent_of_code "perl run.pl"
+```
+
+so that running a valid day `n` is
+
+```
+advent_of_code n
+```
