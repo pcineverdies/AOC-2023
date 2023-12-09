@@ -1,9 +1,5 @@
 # Advent of Code 2023 in Perl
 
-## !!! DISCLAIMER !!!
-I have never used Perl before and it's been a while since I have done some programming challenges. 
-I will try to exploit language's functionalities as much as possible.
-
 ## Usage
 
 To run a (valid) day `n` use
@@ -14,14 +10,18 @@ perl run.pl n
 
 ## Fish trick
 
-As I use `fish` I set the following alias
+As I use `fish` I set the following variable, alias and function
 
 ```
-alias --save advent_of_code "perl run.pl"
-```
+set -U AOC_FOLDER ~/Path/To/AOC/
+alias --save advent_of_code "cd $AOC_FOLDER; perl run.pl"
+alias --save advent_of_code_init "cd $AOC_FOLDER; touch"
 
-so that running a valid day `n` is
-
-```
-advent_of_code n
+function advent_of_code_init
+  cd $AOC_FOLDER; touch inputs/day_$argv.in
+  cp template.pl src/day_$argv.pl
+  code $AOC_FOLDER
+  code inputs/day_$argv.in
+  code src/day_$argv.pl
+end
 ```
