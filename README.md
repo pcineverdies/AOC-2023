@@ -15,7 +15,6 @@ As I use `fish` I set the following variable, alias and function
 ```
 set -U AOC_FOLDER ~/Path/To/AOC/
 alias --save advent_of_code "cd $AOC_FOLDER; perl run.pl"
-alias --save advent_of_code_init "cd $AOC_FOLDER; touch"
 
 function advent_of_code_init
   cd $AOC_FOLDER; touch inputs/day_$argv.in
